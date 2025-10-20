@@ -22,16 +22,25 @@ int main() {
 	//How do you store data in a vector?
 	vector<int> case_name;
 	vector<int> choices;
+	int cases_number = read(case_file);
+	if (cases_number < 2) die();
 	//How do you average values across a vector?
-	int inputUser = 0;
-	int sumOfCases = 0;
 	cout << "Please enter a brief case to open\n";
 	while (true) {
-		cin >> inputUser;
-		if (inputUser == -1) {
-			break;
-		}
-		// When we do if statements for the cases (will fill in later)
-		sumOfCases = sumOfCases; //what will be leftover from the vector
+		int userInput = 0;
+		case_name >> userInput;
+		if (!case_name) break;
+		case_name.pushback(userInput);
 	}
+	int sumOfCases = 0;
+	int averageOfCases = 0;
+	int size = case_name.size();
+	while (true) {
+		cout << "Please enter a briefcase to open:\n";
+		int gambler = 0'
+		cin >> gambler;
+		if (!cin) die();
+		//TODO: Game Logic (3.1, 3.2, 3.3, 3.4) 
+	}
+	cout << "You won " << dollarAmount << " dollars!\n";
 }
