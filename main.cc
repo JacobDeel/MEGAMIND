@@ -3,6 +3,8 @@
 #include <vector>
 #include <iomanip>
 #include <cmath>
+#include <algorithm>
+#include <numeric>
 using namespace std;
 
 void die() {
@@ -23,24 +25,48 @@ int main() {
 	vector<int> case_name;
 	vector<int> choices;
 	int cases_number = read(case_file);
-	if (cases_number < 2) die();
+//*TODO ??	if (cases_number < 2) die();
 	//How do you average values across a vector?
-	cout << "Please enter a brief case to open\n";
 	while (true) {
 		int userInput = 0;
-		case_name >> userInput;
-		if (!case_name) break;
-		case_name.pushback(userInput);
+		case_file >> userInput;
+		if (!case_file) break;
+		case_name.push_back(userInput);
 	}
 	int sumOfCases = 0;
 	int averageOfCases = 0;
-	int size = case_name.size();
+	int permaSize = case_name.size();
+	int tempSize = permaSize;
+	int dollarAmount = 0;
+	int remainingCaseIndex = 0;
 	while (true) {
+		if (tempSize == 1) {
+			for (int i = 0; i < permaSize; i++) {
+				if (case_name.at(i) != 0) {
+					remainingCaseIndex = i;
+				}
+			}
+			dollarAmount = case_name.at(remainingCaseIndex);
+		}
 		cout << "Please enter a briefcase to open:\n";
-		int gambler = 0'
+		int gambler = 0;
 		cin >> gambler;
 		if (!cin) die();
-		//TODO: Game Logic (3.1, 3.2, 3.3, 3.4) 
+		//TODO: Game Logic (3.1, 3.2, 3.3, 3.4)
+		if (gambler == -1) {
+			dollarAmount = averageOfCases;
+			break;
+		}
+		if (gambler > permaSize) die();
+		if (gambler < 0 && gambler != -1) die();
+		choices.push_back(gambler);
+		auto it = find(choices.begin(), choices.end(), gambler);
+		if (it != choices.end()) die();
+		cout << "That briefcase held " << case_name.at(gambler - 1) << " dollars" << endl;
+		tempSize--;
+		sumOfCases = accumulate(case_name.begin(), case_name.end(), 0);
+		averageOfCases = case_name.empty() ? 0 : sumOfCases / tempSize;
+		cout << "I will offer you " << averageOfCases << " dollars to walk away." << endl;
 	}
 	cout << "You won " << dollarAmount << " dollars!\n";
 }
