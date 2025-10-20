@@ -19,8 +19,6 @@ int main() {
 	ifstream case_file(filename);
 	//How to check to see if the file opened successfully?
 	if (!case_file) die();
-	size_t n = 5;
-	if (n < 2) die();
 	//How do you store data in a vector?
 	vector<int> case_name;
 	vector<int> choices;
