@@ -40,7 +40,7 @@ int main() {
 	int dollarAmount = 0;
 	int remainingCaseIndex = 0;
 	while (true) {
-		if (tempSize == 1) {
+		if (tempSize == 0 || tempSize == 1) {
 			for (int i = 0; i < permaSize; i++) {
 				if (case_name.at(i) != 0) {
 					remainingCaseIndex = i;
@@ -59,13 +59,19 @@ int main() {
 		}
 		if (gambler > permaSize) die();
 		if (gambler < 0 && gambler != -1) die();
-		choices.push_back(gambler);
 		auto it = find(choices.begin(), choices.end(), gambler);
 		if (it != choices.end()) die();
+		choices.push_back(gambler);
 		cout << "That briefcase held " << case_name.at(gambler - 1) << " dollars" << endl;
 		tempSize--;
 		sumOfCases = accumulate(case_name.begin(), case_name.end(), 0);
-		averageOfCases = case_name.empty() ? 0 : sumOfCases / tempSize;
+		if (tempSize == 0) continue;
+		if (case_name.size() == 0 || case_name.size() < 2) {
+			averageOfCases = 0;
+		} else {
+			averageOfCases = sumOfCases / (tempSize + 1);
+		}
+//		averageOfCases = case_name.empty() ? 0 : sumOfCases / tempSize;
 		cout << "I will offer you " << averageOfCases << " dollars to walk away." << endl;
 	}
 	cout << "You won " << dollarAmount << " dollars!\n";
